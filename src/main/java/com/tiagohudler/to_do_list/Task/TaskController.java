@@ -2,6 +2,8 @@ package com.tiagohudler.to_do_list.Task;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,5 +33,10 @@ public class TaskController {
             throw new RuntimeException("Task not found");
         }
         return task.get();
+    }
+
+    @PostMapping("")
+    void createTask (@RequestBody Task task) {
+        taskRepository.addTask(task);
     }
 }

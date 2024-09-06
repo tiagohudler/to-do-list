@@ -16,6 +16,10 @@ public class TaskRepository {
 
     private List<Task> tasks = new ArrayList <> ();
 
+    void addTask (Task task) {
+        tasks.add(task);
+    }
+
     List<Task> getAll () {
         return tasks;
     }
