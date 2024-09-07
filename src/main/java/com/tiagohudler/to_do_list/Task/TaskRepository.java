@@ -3,6 +3,7 @@ package com.tiagohudler.to_do_list.Task;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.boot.context.config.ConfigData.Option;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -26,6 +27,16 @@ public class TaskRepository {
 
     Optional<Task> getById (int id) {
         return tasks.stream().filter(task -> task.id() == id).findFirst();
+    }
+
+    void update (Task task, int id) {
+        Optional<Task> existingTask = getById(id);
+        if (existingTask.isPresent()) {
+            tasks.set(tasks.indexOf(existingTask.get()), task);
+        }
+        else {
+            throw new RuntimeException("Task not found");
+        }
     }
 
     @PostConstruct
