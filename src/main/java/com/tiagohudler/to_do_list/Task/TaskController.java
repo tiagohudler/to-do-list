@@ -37,6 +37,7 @@ public class TaskController {
     Task getById (@PathVariable int id) {
         Optional<Task> task = taskRepository.getById(id);
         if (task.isEmpty()) {
+            //TODO: create custom task not found exception
             throw new RuntimeException("Task not found");
         }
         return task.get();
