@@ -1,5 +1,6 @@
 package com.tiagohudler.to_do_list.Task;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,5 +48,10 @@ public class TaskController {
     @PutMapping("")
     void updateTask (@RequestBody Task task) {
         taskRepository.update(task, task.id());
+    }
+
+    @DeleteMapping("/{id}")
+    void deleteTask (@PathVariable int id) {
+        taskRepository.delete(id);
     }
 }

@@ -39,6 +39,16 @@ public class TaskRepository {
         }
     }
 
+    void delete (int id) {
+        Optional<Task> existingTask = getById(id);
+        if (existingTask.isPresent()) {
+            tasks.remove(existingTask.get());
+        }
+        else {
+            throw new RuntimeException("Task not found");
+        }
+    }
+
     @PostConstruct
     private void init (){
         tasks.add(new Task(1, LocalDateTime.now(), 1, "Estudar", "Estudar Spring Boot"));
