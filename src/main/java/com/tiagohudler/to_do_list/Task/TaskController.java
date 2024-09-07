@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
@@ -41,12 +44,12 @@ public class TaskController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
-    void createTask (@RequestBody Task task) {
+    void createTask (@Valid @RequestBody Task task) {
         taskRepository.addTask(task);
     }
 
     @PutMapping("")
-    void updateTask (@RequestBody Task task) {
+    void updateTask (@Valid @RequestBody Task task) {
         taskRepository.update(task, task.id());
     }
 
