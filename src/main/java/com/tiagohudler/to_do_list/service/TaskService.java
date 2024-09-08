@@ -34,4 +34,8 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
+    public void deleteAll() {
+        taskRepository.deleteAll();
+    }
+
 }
