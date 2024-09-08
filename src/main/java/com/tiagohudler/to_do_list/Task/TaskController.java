@@ -5,11 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +37,21 @@ public class TaskController {
     public ResponseEntity<Task> addTask (@RequestBody Task task) {
         Task savedTask = taskService.save(task);
         return new ResponseEntity<>(savedTask, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Task> updateTask (@RequestBody Task task, @PathVariable Long id) {
+        Optional<Task> existingTask = taskService.findById(id);
+        if (existingTask.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        Task updatedTask = new Task();
+        existingTask.get().setDescription(task.getDescription());
+        existingTask.get().setName(task.getName());
+        existingTask.get().setStatus(task.getStatus());
+        existingTask.get().setDueDate(task.getDueDate());
+        taskService.save(existingTask.get());
+        return new ResponseEntity<>(existingTask.get(), HttpStatus.CREATED);
     }
 
 }

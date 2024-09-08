@@ -2,14 +2,16 @@ package com.tiagohudler.to_do_list.service;
 
 import com.tiagohudler.to_do_list.Task.Task;
 import com.tiagohudler.to_do_list.repository.TaskRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class TaskService {
+
     private final TaskRepository taskRepository;
 
     public TaskService(TaskRepository taskRepository) {
@@ -27,4 +29,5 @@ public class TaskService {
     public Task save(Task task) {
         return taskRepository.save(task);
     }
+
 }
