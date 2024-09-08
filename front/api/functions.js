@@ -63,7 +63,7 @@ export function putTask (name, description, dueDate, status, id) {
             "Content-Type" : "application/json",
         },
         body: JSON.stringify({
-            id : id,
+            id : Number(id),
             name: name,
             description: description,
             dueDate: dueDate,

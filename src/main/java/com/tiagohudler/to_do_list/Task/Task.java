@@ -1,6 +1,6 @@
 package com.tiagohudler.to_do_list.Task;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
@@ -29,6 +29,6 @@ public class Task {
     private String name;
     private String description;
     @Future
-    private LocalDateTime dueDate;
+    private LocalDate dueDate;
 
 }

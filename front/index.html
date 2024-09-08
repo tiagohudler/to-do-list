@@ -15,7 +15,7 @@
     </div>
 
     <div class="formContainer">
-        <form id="createForm" class="popup" action="http://localhost:8080/api/tasks/add-task" method="POST">
+        <form id="createForm" class="popup">
             <div>
                 <label for="taskName">Task Name:</label>
                 <input type="text" id="taskName" name="taskName" placeholder="Task Name">
@@ -31,6 +31,32 @@
             <div>
                 <label for="taskStatus">Task status:</label>
                 <select id="taskStatus" name="taskStatus">
+                    <option value="NOT_STARTED">Not Started</option>
+                    <option value="IN_PROGRESS">In Progress</option>
+                    <option value="ON_HOLD">On Hold</option>
+                    <option value="COMPLETED">Completed</option>
+                </select>
+            </div>
+            <input type="submit">
+        </form>
+    </div>
+    <div class="formContainer">
+        <form id="updateForm" class="popup">
+            <div>
+                <label for="updateName">Task Name:</label>
+                <input type="text" id="updateName" name="updateName" placeholder="Task Name">
+            </div>
+            <div>
+                <label for="updateDescription">Task Description:</label>
+                <input type="text" id="updateDescription" name="updateDescription" placeholder="Task Description">
+            </div>
+            <div>
+                <label for="updateDueDate">Due Date:</label>
+                <input type="date" id="updateDueDate" name="updateDueDate" placeholder="Task Due Date">
+            </div>
+            <div>
+                <label for="updateStatus">Task status:</label>
+                <select id="updateStatus" name="updateStatus">
                     <option value="NOT_STARTED">Not Started</option>
                     <option value="IN_PROGRESS">In Progress</option>
                     <option value="ON_HOLD">On Hold</option>
