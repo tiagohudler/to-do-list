@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.boot.context.config.ConfigData.Option;
 import org.springframework.stereotype.Repository;
+import org.springframework.jdbc.core.simple.JdbcClient;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -15,7 +16,22 @@ import jakarta.annotation.PostConstruct;
 @Repository
 public class TaskRepository {
  
-    private List<Task> tasks = new ArrayList <> ();
+    private final JdbcClient jdbcClient;
+
+    public TaskRepository (JdbcClient jdbcClient) {
+        this.jdbcClient = jdbcClient;
+    }
+
+    List<Task> getAll () {
+        return jdbcClient.sql("SELECT * FROM tasks")
+            .query(Task.class)
+            .list()     
+        ;
+    }
+
+    
+
+    /* 
 
     void addTask (Task task) {
         tasks.add(task);
@@ -48,10 +64,7 @@ public class TaskRepository {
             throw new RuntimeException("Task not found");
         }
     }
+    */ 
 
-    @PostConstruct
-    private void init (){
-        tasks.add(new Task(1, LocalDateTime.now(), 1, "Estudar", "Estudar Spring Boot"));
-        tasks.add(new Task(2, LocalDateTime.now().plus(40, ChronoUnit.DAYS), 1, "Estudar", "Estudar Spring Boot"));
-    }
+    
 }

@@ -33,7 +33,7 @@ public class TaskController {
         return taskRepository.getAll();
     }
 
-    @GetMapping("/{id}")
+    /* @GetMapping("/{id}")
     Task getById (@PathVariable int id) {
         Optional<Task> task = taskRepository.getById(id);
         if (task.isEmpty()) {
@@ -57,5 +57,5 @@ public class TaskController {
     @DeleteMapping("/{id}")
     void deleteTask (@PathVariable int id) {
         taskRepository.delete(id);
-    }
+    } */
 }
