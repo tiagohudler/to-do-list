@@ -1,5 +1,6 @@
 import { postTask } from "./api/functions.js";
 import { getAllTasks } from "./api/functions.js";
+import { deleteTaskDB } from "./api/functions.js";
 // Pop-up funtions for create form
 
 function openForm() {
@@ -10,6 +11,16 @@ function closeForm() {
     document.getElementById("createForm").style.display = "none";
 }
 
+// delete task function
+
+function deleteTask(id, tasks) {
+    let task = document.getElementById(id);
+    deleteTaskDB(id);
+    tasks = tasks.filter((task) => task.id !== id);
+    task.remove();
+}
+
+// given a list of tasks, append tasks onto the display
 function createTaskList (tasks) {
     // Get the div with the id "taskList"
     const taskListDiv = document.getElementById("taskList");
@@ -32,6 +43,24 @@ function createTaskList (tasks) {
 
         // Set the innerHTML of the new div
         taskDiv.innerHTML = taskDetails;
+
+        // Create Edit Button
+        const editButton = document.createElement("button");
+        editButton.textContent = "Edit";
+        editButton.classList.add("edit-button");
+        //editButton.addEventListener("click", () => editTask(index));
+
+        // Create Exclude Button
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.classList.add("delete-button");
+        deleteButton.addEventListener("click", () => deleteTask(task.id, tasks));
+
+        // Append buttons to task div
+        taskDiv.appendChild(editButton);
+        taskDiv.appendChild(deleteButton);
+
+        taskDiv.id = task.id;
 
         // Append the new div to the taskList div
         taskListDiv.appendChild(taskDiv);

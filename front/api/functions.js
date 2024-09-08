@@ -35,3 +35,22 @@ export async function getAllTasks (name, description, dueDate, status) {
     const tasks = await response.json();
     return tasks;
 }
+
+export async function deleteTaskDB (id) {
+    const url = `http://localhost:8080/api/tasks/${id}`;
+    const deleteRequest = new Request(url, {
+        method: "DELETE"
+    });
+
+    fetch(deleteRequest)
+        .then((response) => {
+            if (response.status === 204) {
+                alert("Task deleted successfully");
+            } else {
+                alert("An error occurred, please try again");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
