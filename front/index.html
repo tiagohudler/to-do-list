@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Manager</title>
@@ -13,9 +14,36 @@
         <h1>Manager</h1>
     </div>
 
-    <button id="createTask">Add Task</button>
+    <div class="formContainer">
+        <form id="createForm" class="popup" action="">
+            <div>
+                <label for="taskName">Task Name:</label>
+                <input type="text" id="taskName" name="taskName" placeholder="Task Name">
+            </div>
+            <div>
+                <label for="taskDescription">Task Description:</label>
+                <input type="text" id="taskDescription" name="taskDescription" placeholder="Task Description">
+            </div>
+            <div>
+                <label for="dueDate">Due Date:</label>
+                <input type="date" id="dueDate" name="dueDate" placeholder="Task Due Date">
+            </div>
+            <div>
+                <label for="statusSelect">Task status:</label>
+                <select id="statuSelect" name="statusSelect">
+                    <option value="NOT_STARTED">Not Started</option>
+                    <option value="IN_PROGRESS">In Progress</option>
+                    <option value="ON_HOLD">On Hold</option>
+                    <option value="COMPLETED">Completed</option>
+                </select>
+            </div>
+            <input type="submit">
+        </form>
+    </div>
+
+    <button id="createTask" onclick="openForm()">Add Task</button>
     <div class="search-container">
-        <form action="/action_page.php">
+        <form action="">
           <input type="text" placeholder="Search.." name="search">
           <button type="submit">Submit</button>
         </form>
