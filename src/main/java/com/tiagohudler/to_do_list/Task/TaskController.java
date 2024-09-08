@@ -1,14 +1,9 @@
 package com.tiagohudler.to_do_list.Task;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import com.tiagohudler.to_do_list.service.TaskService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 
@@ -22,40 +17,28 @@ import java.util.Optional;
 @RequestMapping("/api/tasks")
 public class TaskController {
 
-    private final TaskRepository taskRepository;
+    @Autowired
+    private TaskService taskService;
 
-    public TaskController (TaskRepository taskRepository) {
-        this.taskRepository = taskRepository;
-    }
-    
-    @GetMapping()
-    List <Task> getAll () {
-        return taskRepository.getAll();
+    @GetMapping("/all-tasks")
+    public ResponseEntity<List<Task>> findAll () {
+        List<Task> tasks = taskService.findAll();
+        return ResponseEntity.ok(tasks);
     }
 
-    /* @GetMapping("/{id}")
-    Task getById (@PathVariable int id) {
-        Optional<Task> task = taskRepository.getById(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<Task> findById (@PathVariable Long id) {
+        Optional<Task> task = taskService.findById(id);
         if (task.isEmpty()) {
-            //TODO: create custom task not found exception
-            throw new RuntimeException("Task not found");
+            return ResponseEntity.notFound().build();
         }
-        return task.get();
+        return ResponseEntity.ok(task.get());
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("")
-    void createTask (@Valid @RequestBody Task task) {
-        taskRepository.addTask(task);
+    @PostMapping("/add-task")
+    public ResponseEntity<Task> addTask (@RequestBody Task task) {
+        Task savedTask = taskService.save(task);
+        return new ResponseEntity<>(savedTask, HttpStatus.CREATED);
     }
 
-    @PutMapping("")
-    void updateTask (@Valid @RequestBody Task task) {
-        taskRepository.update(task, task.id());
-    }
-
-    @DeleteMapping("/{id}")
-    void deleteTask (@PathVariable int id) {
-        taskRepository.delete(id);
-    } */
 }
