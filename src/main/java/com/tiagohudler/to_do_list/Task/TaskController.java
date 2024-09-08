@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/tasks")
+@CrossOrigin("http://127.0.0.1:5500")
 public class TaskController {
 
     @Autowired
@@ -34,6 +35,7 @@ public class TaskController {
     }
 
     @PostMapping("/add-task")
+    @CrossOrigin("*")
     public ResponseEntity<Task> addTask (@RequestBody Task task) {
         Task savedTask = taskService.save(task);
         return new ResponseEntity<>(savedTask, HttpStatus.CREATED);

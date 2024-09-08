@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <script type="module" src="script.js" defer></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Manager</title>
@@ -15,7 +15,7 @@
     </div>
 
     <div class="formContainer">
-        <form id="createForm" class="popup" action="">
+        <form id="createForm" class="popup" action="http://localhost:8080/api/tasks/add-task" method="POST">
             <div>
                 <label for="taskName">Task Name:</label>
                 <input type="text" id="taskName" name="taskName" placeholder="Task Name">
@@ -29,8 +29,8 @@
                 <input type="date" id="dueDate" name="dueDate" placeholder="Task Due Date">
             </div>
             <div>
-                <label for="statusSelect">Task status:</label>
-                <select id="statuSelect" name="statusSelect">
+                <label for="taskStatus">Task status:</label>
+                <select id="taskStatus" name="taskStatus">
                     <option value="NOT_STARTED">Not Started</option>
                     <option value="IN_PROGRESS">In Progress</option>
                     <option value="ON_HOLD">On Hold</option>
@@ -41,7 +41,7 @@
         </form>
     </div>
 
-    <button id="createTask" onclick="openForm()">Add Task</button>
+    <button id="createTask">Add Task</button>
     <div class="search-container">
         <form action="">
           <input type="text" placeholder="Search.." name="search">
