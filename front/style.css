@@ -36,6 +36,14 @@ h1 {
     transform: translate(-50%, -50%);
 }
 
-.task {
-    
+.task-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 5px;
 }

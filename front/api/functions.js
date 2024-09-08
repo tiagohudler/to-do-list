@@ -25,3 +25,13 @@ export function postTask (name, description, dueDate, status) {
             console.log(error);
         });
 }
+
+export async function getAllTasks (name, description, dueDate, status) {
+    const url = "http://localhost:8080/api/tasks/all-tasks";
+    const getAllRequest = new Request(url, {
+        method: "GET"
+    });
+    const response = await fetch(getAllRequest);
+    const tasks = await response.json();
+    return tasks;
+}
