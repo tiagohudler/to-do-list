@@ -54,3 +54,32 @@ export async function deleteTaskDB (id) {
             console.log(error);
         });
 }
+
+export function putTask (name, description, dueDate, status, id) {
+    const url = `http://localhost:8080/api/tasks/${id}`;
+    const putrequest = new Request(url, {
+        method: "PUT",
+        headers: {
+            "Content-Type" : "application/json",
+        },
+        body: JSON.stringify({
+            id : id,
+            name: name,
+            description: description,
+            dueDate: dueDate,
+            status: status,
+        }),
+    });
+
+    fetch(putrequest)
+        .then((response) => {
+            if (response.status === 201) {
+                alert("Task updated successfully");
+            } else {
+                alert("An error occurred, please try again");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}

@@ -11,8 +11,27 @@ function closeForm() {
     document.getElementById("createForm").style.display = "none";
 }
 
-// delete task function
+// event handler for create form submission
+function createEventHandler(e) {
+    
+    e.preventDefault();
+  
+    let taskName = document.getElementById("taskName").value;
+    let taskDescription = document.getElementById("taskDescription").value;
+    let dueDate = document.getElementById("dueDate").value;
+    let taskStatus = document.getElementById("taskStatus").value;
+    
+    postTask(taskName, taskDescription, dueDate, taskStatus);
+    closeForm();
+    setTimeout(() => {
+    (async () => {
+        createTaskList(await getAllTasks());
+    })();}, 100);
 
+
+}
+
+// delete task function
 function deleteTask(id, tasks) {
     let task = document.getElementById(id);
     deleteTaskDB(id);
@@ -20,8 +39,31 @@ function deleteTask(id, tasks) {
     task.remove();
 }
 
+// edit task function, opens the form and returns it to original state
+
+function editTask(id, tasks) {
+    document.getElementById("createForm").style.display = "flex";
+    const task = tasks.find((task) => task.id === id);
+    document.getElementById("taskName").value = task.name;
+    document.getElementById("dueDate").value = task.dueDate;
+    document.getElementById("taskStatus").value = task.status;
+    document.getElementById("taskDescription").value = task.description;
+    document.getElementById("createForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        let newTaskName = document.getElementById("taskName").value;
+        let newDueDate = document.getElementById("dueDate").value;
+        let newTaskStatus = document.getElementById("taskStatus").value;
+        let newTaskDescription = document.getElementById("taskDescription").value;
+        putTask(newTaskName, newTaskDescription , newDueDate, newTaskStatus, id);
+        closeForm();
+        document.getElementById("taskList").innerHTML = "";
+        createTaskList(getAllTasks());
+    });
+    
+}
+
 // given a list of tasks, append tasks onto the display
-function createTaskList (tasks) {
+function createTaskList(tasks) {
     // Get the div with the id "taskList"
     const taskListDiv = document.getElementById("taskList");
 
@@ -48,7 +90,7 @@ function createTaskList (tasks) {
         const editButton = document.createElement("button");
         editButton.textContent = "Edit";
         editButton.classList.add("edit-button");
-        //editButton.addEventListener("click", () => editTask(index));
+        editButton.addEventListener("click", () => editTask(task.id, tasks));
 
         // Create Exclude Button
         const deleteButton = document.createElement("button");
@@ -67,26 +109,17 @@ function createTaskList (tasks) {
     });
 }
 
+// Get all tasks and display them in first startup
+
 createTaskList(await getAllTasks());
+
+
 
 // create task button opens up form
 let openCreateFormButton = document.getElementById("createTask");
 openCreateFormButton.addEventListener("click", openForm);
 
 // create task form submission
-let createTaskButton = document.getElementById("createForm");
-createTaskButton.addEventListener("submit", (e) => {
-    
-    e.preventDefault();
-  
-    let taskName = document.getElementById("taskName").value;
-    let taskDescription = document.getElementById("taskDescription").value;
-    let dueDate = document.getElementById("dueDate").value;
-    let taskStatus = document.getElementById("taskStatus").value;
-
-    postTask(taskName, taskDescription, dueDate, taskStatus);
-    closeForm();
-
-
-});
+let createTaskForm = document.getElementById("createForm");
+createTaskForm.addEventListener("submit", createEventHandler);
 
