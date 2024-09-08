@@ -20,9 +20,10 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Enumerated(EnumType.ORDINAL)
+    
     private Status status;
     @NotEmpty
+    @Enumerated(EnumType.ORDINAL)
     private String name;
     private String description;
     @Future
