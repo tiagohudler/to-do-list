@@ -11,13 +11,9 @@ function openCreateForm() {
 function closeCreateForm() {
     document.getElementById("createForm").style.display = "none";
 }
-
-function openUpdateForm() {
-    document.getElementById("updateForm").style.display = "flex";
-}
   
 function closeUpdateForm() {
-    document.getElementById("updateForm").style.display = "none";
+    document.getElementById("form-container").textContent = '';
 }
 
 // Show task details function
@@ -33,13 +29,30 @@ function showTaskDetails(name, description, dueDate, status) {
 
     }
 
-    // Preenche o conteúdo do div com as informações da tarefa
+    // Fill the div with the task details
     taskDetailsDiv.innerHTML = `
         <h2>${name}</h2>
-        <p><strong>Description:</strong> ${description}</p>
-        <p><strong>Due Date:</strong> ${dueDate}</p>
-        <p><strong>Status:</strong> ${status}</p>
+        <div>
+            <h3>Description:</h3>
+            <p>${description}</p>
+        </div>
+        <div>
+            <h3>Due Date:</h3>
+            <p>${dueDate}</p>
+        </div>
+        <div>
+            <h3>Status:</h3>
+            <p>${status}</p>
+        </div>
+        <button id="closeTaskDetails" class="cancelButton">Close</button>
     `;
+
+    // Add event listener to close the div
+
+    document.getElementById('closeTaskDetails').addEventListener('click', () => {
+        taskDetailsDiv.textContent = '';
+        taskDetailsDiv.parentNode.removeChild(taskDetailsDiv);
+    });
     
     // Exibe o div
     taskDetailsDiv.style.display = 'block';
@@ -48,9 +61,7 @@ function showTaskDetails(name, description, dueDate, status) {
 
 // Conevert date from "YYYY-MM-DD" to "DD/MM/YYYY"
 function transformDate(dateString) {
-    if (dateString === null) {
-        return "No due date";
-    }
+
     const [year, month, day] = dateString.split('-');
     
     return `${day}/${month}/${year}`;
@@ -91,20 +102,49 @@ function updateEventHandler(e, id) {
     (async () => {
         createTaskList(await getAllTasks());
     })();}, 100);
+    document.getElementById("updateForm").removeEventListener("submit", updateEventHandler);
+
 }
 
 // edit task function, opens the form and returns it to original state
 
-function editTask(e, id, tasks) {
+function editTask(e, task) {
     e.stopPropagation();
-    openUpdateForm();
-    const task = tasks.find((task) => task.id === id);
+    document.getElementById("form-container").innerHTML = `
+    <form id="updateForm" class="inputform">
+            <div class="form-item">
+                <label for="updateName">Task Name:</label>
+                <input type="text" id="updateName" name="updateName" placeholder="Task Name" required>
+            </div>
+            <div class="form-item">
+                <label for="updateDescription">Task Description:</label>
+                <textarea type="text" id="updateDescription" name="updateDescription" placeholder="Task Description" rows="4"></textarea>
+            </div>
+            <div class="form-item">
+                <label for="updateDueDate">Due Date:</label>
+                <input type="date" id="updateDueDate" name="updateDueDate" placeholder="Task Due Date">
+            </div>
+            <div class="form-item">
+                <label for="updateStatus">Task status:</label>
+                <select id="updateStatus" name="updateStatus">
+                    <option value="NOT_STARTED">Not Started</option>
+                    <option value="IN_PROGRESS">In Progress</option>
+                    <option value="ON_HOLD">On Hold</option>
+                    <option value="COMPLETED">Completed</option>
+                </select>
+            </div>
+            <div>
+                <input type="submit" class="submit-form-button" value="Submit">
+                <input type="button" value="Cancel" class="cancelButton" id="cancelUpdateButton">
+            </div>
+        </form>`;
     document.getElementById("updateName").value = task.name;
     document.getElementById("updateDueDate").value = task.dueDate;
     document.getElementById("updateStatus").value = task.status;
     document.getElementById("updateDescription").value = task.description; 
-    document.getElementById("updateForm").addEventListener("submit", (e) => updateEventHandler(e, id));
-    
+    document.getElementById("updateForm").addEventListener("submit", (elem) => updateEventHandler(elem, task.id));
+    document.getElementById("cancelUpdateButton").addEventListener("click", () => closeFormById("updateForm"));
+
 }
 
 // delete task function
@@ -134,12 +174,27 @@ function createTaskList(tasks) {
     tasks.forEach((task) => {
         // Create a new div for each task
         const taskDiv = document.createElement("div");
-        taskDiv.classList.add("task-item");  // Optionally add a class for styling
+        taskDiv.classList.add("task-item"); 
+
+        let taskDetails;
+        if (task.dueDate === null) {
+            taskDetails = `
+            <p class="task-item-name"><strong>${task.name}</strong></p>
+            <p><strong>Due by:</strong>"No due date"</p>
+            <p><strong>Status:</strong> ${task.status}</p>
+            `;
+        } else {
+            taskDetails = `
+            <p class="task-item-name"><strong>${task.name}</strong></p>
+            <p><strong>Due by:</strong>${transformDate(task.dueDate)}</p>
+            <p><strong>Status:</strong> ${task.status}</p>
+            `;
+        }
 
         // Create a string for the task details
-        const taskDetails = `
+        taskDetails = `
             <p class="task-item-name"><strong>${task.name}</strong></p>
-            <p><strong>Due by:</strong> ${transformDate(task.dueDate)}</p>
+            <p><strong>Due by:</strong> ${task.dueDate}</p>
             <p><strong>Status:</strong> ${task.status}</p>
         `;
 
@@ -150,7 +205,7 @@ function createTaskList(tasks) {
         const editButton = document.createElement("button");
         editButton.textContent = "Edit";
         editButton.classList.add("edit-button");
-        editButton.addEventListener("click", (e) => editTask(e, task.id, tasks));
+        editButton.addEventListener("click", (e) => editTask(e, task));
         editButton.innerHTML = `
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                 <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
@@ -207,7 +262,6 @@ function closeFormById(id) {
     document.getElementById(id).style.display = "none";
 }
 
-document.getElementById("cancelUpdateButton").addEventListener("click", () => closeFormById("updateForm"));
 
 document.getElementById("cancelCreateButton").addEventListener("click", () => closeFormById("createForm"));
 
