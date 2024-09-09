@@ -20,6 +20,17 @@ function closeUpdateForm() {
     document.getElementById("updateForm").style.display = "none";
 }
 
+// Conevert date from "YYYY-MM-DD" to "DD/MM/YYYY"
+function transformDate(dateString) {
+    if (dateString === null) {
+        return "No due date";
+    }
+    const [year, month, day] = dateString.split('-');
+    
+    return `${day}/${month}/${year}`;
+
+}
+
 // event handler for create form submission
 function createEventHandler(e) {
     
@@ -55,15 +66,6 @@ function updateEventHandler(id) {
     })();}, 100);
 }
 
-
-// delete task function
-function deleteTask(id, tasks) {
-    let task = document.getElementById(id);
-    deleteTaskDB(id);
-    tasks = tasks.filter((task) => task.id !== id);
-    task.remove();
-}
-
 // edit task function, opens the form and returns it to original state
 
 function editTask(id, tasks) {
@@ -76,6 +78,14 @@ function editTask(id, tasks) {
     document.getElementById("updateDescription").value = task.description; 
     document.getElementById("updateForm").addEventListener("submit", () => updateEventHandler(id));
     
+}
+
+// delete task function
+function deleteTask(id, tasks) {
+    let task = document.getElementById(id);
+    deleteTaskDB(id);
+    tasks = tasks.filter((task) => task.id !== id);
+    task.remove();
 }
 
 // given a list of tasks, append tasks onto the display
@@ -98,8 +108,8 @@ function createTaskList(tasks) {
 
         // Create a string for the task details
         const taskDetails = `
-            <p><strong>Name:</strong> ${task.name}</p>
-            <p><strong>Due Date:</strong> ${task.dueDate}</p>
+            <p class="task-item-name"><strong>${task.name}</strong></p>
+            <p><strong>Due by:</strong> ${transformDate(task.dueDate)}</p>
             <p><strong>Status:</strong> ${task.status}</p>
         `;
 
@@ -162,13 +172,12 @@ createTaskForm.addEventListener("submit", createEventHandler);
 // cancel button closes form
 
 function closeFormById(id) {
-    console.log(id);
-    document.getElementById(id).parentElement.style.display = "none";
+    document.getElementById(id).style.display = "none";
 }
 
-document.getElementById("cancelUpdateButton").addEventListener("click", () => closeFormById("cancelUpdateButton"));
+document.getElementById("cancelUpdateButton").addEventListener("click", () => closeFormById("updateForm"));
 
-document.getElementById("cancelCreateButton").addEventListener("click", () => closeFormById("cancelCreateButton"));
+document.getElementById("cancelCreateButton").addEventListener("click", () => closeFormById("createForm"));
 
 // search by phrase
 
