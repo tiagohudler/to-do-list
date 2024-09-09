@@ -16,6 +16,21 @@ function closeUpdateForm() {
     document.getElementById("form-container").textContent = '';
 }
 
+// Conevert date from "YYYY-MM-DD" to "DD/MM/YYYY"
+function transformDate(dateString) {
+    if (dateString !== null) {
+        
+        const [year, month, day] = dateString.split('-');
+        
+        return `${day}/${month}/${year}`;
+
+    }
+
+    else {
+        return "No due date";
+    }
+}
+
 // Show task details function
 function showTaskDetails(name, description, dueDate, status) {
     // Verify if the div already exists
@@ -56,23 +71,7 @@ function showTaskDetails(name, description, dueDate, status) {
     
     // Exibe o div
     taskDetailsDiv.style.display = 'block';
-}
-   
-
-// Conevert date from "YYYY-MM-DD" to "DD/MM/YYYY"
-function transformDate(dateString) {
-    if (dateString !== null) {
-        
-        const [year, month, day] = dateString.split('-');
-        
-        return `${day}/${month}/${year}`;
-
-    }
-
-    else {
-        return "No due date";
-    }
-}
+}   
 
 // event handler for create form submission
 function createEventHandler(e) {
