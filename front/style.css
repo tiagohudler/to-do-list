@@ -17,11 +17,16 @@ h1 {
     justify-content: left;
     width: 100vw;
     gap: 30px;
+    align-self: center;
+    width: 64vw;
 }
 
 #searchButton {
     height: 33px;
     width: 400px;
+    border-radius: 7px;
+    font-size: 20px;
+    vertical-align:middle;
 }
 
 #searchByWord {
@@ -33,6 +38,7 @@ h1 {
     background-position: center;
     background-size: 75%;
     border-radius: 5px;
+    vertical-align:middle;
 }
 #searchByWord:hover {
     background-color: rgb(155, 155, 155);
@@ -132,4 +138,10 @@ p {
     display: flex;
     flex-direction: column;
     gap: 5px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

@@ -16,7 +16,7 @@ export function postTask (name, description, dueDate, status) {
     fetch(createrequest)
         .then((response) => {
             if (response.status === 201) {
-                alert("Task created successfully");
+                console.log("Task created successfully");
             } else {
                 alert("An error occurred, please try again");
             }
@@ -45,7 +45,7 @@ export async function deleteTaskDB (id) {
     fetch(deleteRequest)
         .then((response) => {
             if (response.status === 204) {
-                alert("Task deleted successfully");
+                console.log("Task deleted successfully");
             } else {
                 alert("An error occurred, please try again");
             }
@@ -74,7 +74,7 @@ export function putTask (name, description, dueDate, status, id) {
     fetch(putrequest)
         .then((response) => {
             if (response.status === 201) {
-                alert("Task updated successfully");
+                console.log("Task updated successfully");
             } else {
                 alert("An error occurred, please try again");
             }
