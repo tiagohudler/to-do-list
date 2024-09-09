@@ -186,17 +186,10 @@ function createTaskList(tasks) {
         } else {
             taskDetails = `
             <p class="task-item-name"><strong>${task.name}</strong></p>
-            <p><strong>Due by:</strong>${transformDate(task.dueDate)}</p>
-            <p><strong>Status:</strong> ${task.status}</p>
+            <p><strong>Due by: </strong>${transformDate(task.dueDate)}</p>
+            <p><strong>Status: </strong> ${task.status}</p>
             `;
         }
-
-        // Create a string for the task details
-        taskDetails = `
-            <p class="task-item-name"><strong>${task.name}</strong></p>
-            <p><strong>Due by:</strong> ${task.dueDate}</p>
-            <p><strong>Status:</strong> ${task.status}</p>
-        `;
 
         // Set the innerHTML of the new div
         taskDiv.innerHTML = taskDetails;
