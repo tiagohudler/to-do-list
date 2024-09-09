@@ -10,13 +10,42 @@ h1 {
     width: fit-content;
 }
 
+#content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    width: 100vw;
+    gap: 30px;
+}
 
+#searchButton {
+    height: 33px;
+    width: 400px;
+}
+
+#searchByWord {
+    background-color: lightgray;
+    background-image: url(./resources/search.svg);
+    background-repeat: no-repeat;
+    height: 39px;
+    width: 36px;
+    background-position: center;
+    background-size: 75%;
+    border-radius: 5px;
+}
+#searchByWord:hover {
+    background-color: rgb(155, 155, 155);
+}
 
 #createTask {
     background-color: blue;
     color: white;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
     border: none;
-    
+    height: 40px;
+    width: 100px;
     border-radius: 10px;
     padding: 2px;
 }
@@ -51,18 +80,19 @@ h1 {
     flex-direction: row;
     justify-content:space-evenly;
     align-items: center;
-    width: 60%;
+    width: 60vw;
     padding: 10px;
-    border: 1px solid black;
+    border: 3px solid black;
     border-radius: 10px;
     margin: 5px;
+    background-color: white;
 }
 
 
 .delete-button {
     background-color: red;
     color: white;
-    border: black 3px solid;
+    border: black 2px solid;
     border-radius: 10px;
     padding: 10px;
 }
@@ -73,7 +103,7 @@ h1 {
 .edit-button {
     background-color: cyan;
     color:black;
-    border: black 3px solid;
+    border: black 2px solid;
     border-radius: 10px;
     padding: 10px;
 }
@@ -91,4 +121,15 @@ p {
     justify-content:center;
     gap: 20px;
     width: 25%;
+}
+
+#task-list {
+    margin-top: 20px;
+    background-color: rgb(235, 223, 225);
+    width: fit-content;
+    padding: 15px 18px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }

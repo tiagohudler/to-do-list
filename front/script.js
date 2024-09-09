@@ -85,7 +85,7 @@ function createTaskList(tasks) {
         return new Date(a.dueDate) - new Date(b.dueDate);
     });
     // Get the div with the id "taskList"
-    const taskListDiv = document.getElementById("taskList");
+    const taskListDiv = document.getElementById("task-list");
 
     // Clear the div to ensure no duplicate entries
     taskListDiv.innerHTML = '';
