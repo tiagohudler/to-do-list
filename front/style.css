@@ -176,3 +176,13 @@ body {
     border-radius: 10px;
     padding: 2px;
 }
+
+.form-item {
+    display: flex;
+    align-items: top;
+    gap: 10px;
+}
+
+.form-item > * {
+    font-size: 20px;
+}
