@@ -53,7 +53,8 @@ function createEventHandler(e) {
 
 // event handler for update form submission
 
-function updateEventHandler(id) {
+function updateEventHandler(e, id) {
+    e.preventDefault();
     let taskName = document.getElementById("updateName").value;
     let taskDescription = document.getElementById("updateDescription").value;
     let dueDate = document.getElementById("updateDueDate").value;
@@ -76,7 +77,7 @@ function editTask(id, tasks) {
     document.getElementById("updateDueDate").value = task.dueDate;
     document.getElementById("updateStatus").value = task.status;
     document.getElementById("updateDescription").value = task.description; 
-    document.getElementById("updateForm").addEventListener("submit", () => updateEventHandler(id));
+    document.getElementById("updateForm").addEventListener("submit", (e) => updateEventHandler(e, id));
     
 }
 

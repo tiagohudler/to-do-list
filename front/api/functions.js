@@ -18,7 +18,7 @@ export function postTask (name, description, dueDate, status) {
             if (response.status === 201) {
                 console.log("Task created successfully");
             } else {
-                alert("An error occurred, please try again");
+                alert("Invalid parameters, please try again");
             }
         })
         .catch((error) => {
@@ -76,7 +76,7 @@ export function putTask (name, description, dueDate, status, id) {
             if (response.status === 201) {
                 console.log("Task updated successfully");
             } else {
-                alert("An error occurred, please try again");
+                alert("Invalid parameters, please try again");
             }
         })
         .catch((error) => {
