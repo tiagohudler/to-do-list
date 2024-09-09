@@ -80,6 +80,10 @@ function editTask(id, tasks) {
 
 // given a list of tasks, append tasks onto the display
 function createTaskList(tasks) {
+
+    tasks.sort((a, b) => {
+        return new Date(a.dueDate) - new Date(b.dueDate);
+    });
     // Get the div with the id "taskList"
     const taskListDiv = document.getElementById("taskList");
 
@@ -139,4 +143,13 @@ openCreateFormButton.addEventListener("click", openCreateForm);
 let createTaskForm = document.getElementById("createForm");
 createTaskForm.addEventListener("submit", createEventHandler);
 
+// cancel button closes form
 
+function closeFormById(id) {
+    console.log(id);
+    document.getElementById(id).parentElement.style.display = "none";
+}
+
+document.getElementById("cancelUpdateButton").addEventListener("click", () => closeFormById("cancelUpdateButton"));
+
+document.getElementById("cancelCreateButton").addEventListener("click", () => closeFormById("cancelCreateButton"));
