@@ -10,6 +10,7 @@ h1 {
     width: fit-content;
     font-family: "Luckiest Guy";
     font-size: 45px;
+    margin-bottom: -10px;
 }
 
 #content {
@@ -21,6 +22,7 @@ h1 {
     gap: 30px;
     align-self: center;
     width: 64vw;
+    margin-top: 60px;
 }
 
 #searchButton {
@@ -107,14 +109,14 @@ h1 {
 }
 
 .edit-button {
-    background-color: cyan;
-    color:black;
+    background-color: blue;
+    color:white;
     border: black 2px solid;
     border-radius: 10px;
     padding: 10px;
 }
 .edit-button:hover {
-    background-color: rgb(3, 179, 179);
+    background-color: rgb(3, 3, 207);
 }
 
 p {
@@ -131,7 +133,7 @@ p {
 
 #task-list {
     margin-top: 20px;
-    background-color: rgb(235, 223, 225);
+    background-color: gray;
     width: fit-content;
     padding: 15px 18px;
     border-radius: 10px;
@@ -144,6 +146,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: lightgray ;
 }
 
 .task-item-name{
@@ -185,4 +188,17 @@ body {
 
 .form-item > * {
     font-size: 20px;
+}
+
+#task-details {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
 }

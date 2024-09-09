@@ -20,6 +20,32 @@ function closeUpdateForm() {
     document.getElementById("updateForm").style.display = "none";
 }
 
+// Show task details function
+function showTaskDetails(name, description, dueDate, status) {
+    // Verify if the div already exists
+    let taskDetailsDiv = document.getElementById('task-details');
+    
+    if (!taskDetailsDiv) {
+        
+        taskDetailsDiv = document.createElement('div');
+        taskDetailsDiv.id = 'task-details';
+        document.body.appendChild(taskDetailsDiv);
+
+    }
+
+    // Preenche o conteúdo do div com as informações da tarefa
+    taskDetailsDiv.innerHTML = `
+        <h2>${name}</h2>
+        <p><strong>Description:</strong> ${description}</p>
+        <p><strong>Due Date:</strong> ${dueDate}</p>
+        <p><strong>Status:</strong> ${status}</p>
+    `;
+    
+    // Exibe o div
+    taskDetailsDiv.style.display = 'block';
+}
+   
+
 // Conevert date from "YYYY-MM-DD" to "DD/MM/YYYY"
 function transformDate(dateString) {
     if (dateString === null) {
@@ -69,8 +95,8 @@ function updateEventHandler(e, id) {
 
 // edit task function, opens the form and returns it to original state
 
-function editTask(id, tasks) {
-
+function editTask(e, id, tasks) {
+    e.stopPropagation();
     openUpdateForm();
     const task = tasks.find((task) => task.id === id);
     document.getElementById("updateName").value = task.name;
@@ -82,7 +108,10 @@ function editTask(id, tasks) {
 }
 
 // delete task function
-function deleteTask(id, tasks) {
+function deleteTask(e, id, tasks) {
+    
+    e.stopPropagation();
+
     let task = document.getElementById(id);
     deleteTaskDB(id);
     tasks = tasks.filter((task) => task.id !== id);
@@ -121,7 +150,7 @@ function createTaskList(tasks) {
         const editButton = document.createElement("button");
         editButton.textContent = "Edit";
         editButton.classList.add("edit-button");
-        editButton.addEventListener("click", () => editTask(task.id, tasks));
+        editButton.addEventListener("click", (e) => editTask(e, task.id, tasks));
         editButton.innerHTML = `
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                 <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
@@ -132,7 +161,7 @@ function createTaskList(tasks) {
         const deleteButton = document.createElement("button");
         deleteButton.textContent = "Delete";
         deleteButton.classList.add("delete-button");
-        deleteButton.addEventListener("click", () => deleteTask(task.id, tasks));
+        deleteButton.addEventListener("click", (e) => deleteTask(e, task.id, tasks));
         deleteButton.innerHTML = `
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
@@ -150,6 +179,8 @@ function createTaskList(tasks) {
         taskDiv.appendChild(buttonContainer);
 
         taskDiv.id = task.id;
+
+        taskDiv.addEventListener("click", () => showTaskDetails(task.name, task.description, task.dueDate, task.status));
 
         // Append the new div to the taskList div
         taskListDiv.appendChild(taskDiv);
