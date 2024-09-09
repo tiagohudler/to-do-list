@@ -38,7 +38,7 @@ function showTaskDetails(name, description, dueDate, status) {
         </div>
         <div>
             <h3>Due Date:</h3>
-            <p>${dueDate}</p>
+            <p>${transformDate(dueDate)}</p>
         </div>
         <div>
             <h3>Status:</h3>
@@ -61,11 +61,17 @@ function showTaskDetails(name, description, dueDate, status) {
 
 // Conevert date from "YYYY-MM-DD" to "DD/MM/YYYY"
 function transformDate(dateString) {
+    if (dateString !== null) {
+        
+        const [year, month, day] = dateString.split('-');
+        
+        return `${day}/${month}/${year}`;
 
-    const [year, month, day] = dateString.split('-');
-    
-    return `${day}/${month}/${year}`;
+    }
 
+    else {
+        return "No due date";
+    }
 }
 
 // event handler for create form submission
@@ -177,11 +183,12 @@ function createTaskList(tasks) {
         taskDiv.classList.add("task-item"); 
 
         let taskDetails;
+        // Check if the task has a due date, to maintain the same structure in the task
         if (task.dueDate === null) {
             taskDetails = `
             <p class="task-item-name"><strong>${task.name}</strong></p>
-            <p><strong>Due by:</strong>"No due date"</p>
-            <p><strong>Status:</strong> ${task.status}</p>
+            <p><strong>Due by: </strong>No due date</p>
+            <p><strong>Status: </strong> ${task.status}</p>
             `;
         } else {
             taskDetails = `
