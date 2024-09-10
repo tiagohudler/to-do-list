@@ -5,7 +5,9 @@
     <script type="module" src="script.js" defer></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Luckiest+Guy|Pacifico|Permanent+Marker">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <title>Task Manager</title>
 
 </head>
@@ -15,35 +17,35 @@
         <h1>Manager</h1>
     </div>
 
-    <form id="createForm" class="popup inputform">
-        <div class="form-item">
-            <label for="taskName">Task Name:</label>
-            <input type="text" id="taskName" name="taskName" placeholder="Task Name" required>
-        </div>
-        <div class="form-item">
-            <label for="taskDescription">Task Description:</label>
-            <textarea type="text" id="taskDescription" name="taskDescription" placeholder="Task Description" rows="4"></textarea>
-        </div>
-        <div class="form-item">
-            <label for="dueDate">Due Date:</label>
-            <input type="date" id="dueDate" name="dueDate" placeholder="Task Due Date">
-        </div>
-        <div class="form-item">
-            <label for="taskStatus">Task status:</label>
-            <select id="taskStatus" name="taskStatus">
-                <option value="NOT_STARTED">Not Started</option>
-                <option value="IN_PROGRESS">In Progress</option>
-                <option value="ON_HOLD">On Hold</option>
-                <option value="COMPLETED">Completed</option>
-            </select>
-        </div>
-        <div>
-            <input type="submit" class="submit-form-button" value="Submit">
-            <input type="button" value="Cancel" class="cancelButton" id="cancelCreateButton">
-        </div>
-    </form>
-    <div id="form-container">
-        
+    <div>
+        <form id="createForm" class="popup inputform">
+            <div class="form-item">
+                <label for="taskName">Task Name:</label>
+                <input type="text" id="taskName" name="taskName" placeholder="Task Name" required>
+            </div>
+            <div class="form-item">
+                <label for="taskDescription">Task Description:</label>
+                <textarea type="text" id="taskDescription" name="taskDescription" placeholder="Task Description" rows="4"></textarea>
+            </div>
+            <div class="form-item">
+                <label for="dueDate">Due Date:</label>
+                <input type="date" id="dueDate" name="dueDate" placeholder="Task Due Date">
+            </div>
+            <div class="form-item">
+                <label for="taskStatus">Task status:</label>
+                <select id="taskStatus" name="taskStatus">
+                    <option value="NOT_STARTED">Not Started</option>
+                    <option value="IN_PROGRESS">In Progress</option>
+                    <option value="ON_HOLD">On Hold</option>
+                    <option value="COMPLETED">Completed</option>
+                </select>
+            </div>
+            <div>
+                <input type="submit" class="submit-form-button" value="Submit">
+                <input type="button" value="Cancel" class="cancelButton" id="cancelCreateButton">
+            </div>
+        </form>
+        <div id="form-container"></div>
     </div>
 
     <div id="content">
@@ -53,9 +55,7 @@
             <input type="submit"  id="searchByWord" value="">
         </form>
     </div>
-    <div id="task-list">
-    
-    </div>
+    <div id="task-list"></div>
 
 </body>
 </html>

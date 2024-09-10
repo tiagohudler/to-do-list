@@ -31,8 +31,24 @@ function transformDate(dateString) {
     }
 }
 
+// Format status
+
+function formatStatus(input) {
+    
+    let words = input.toLowerCase().split('_');
+  
+    
+    for (let i = 0; i < words.length; i++) {
+      words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+    }
+  
+    
+    return words.join(' ');
+  }
+
 // Show task details function
 function showTaskDetails(name, description, dueDate, status) {
+    
     // Verify if the div already exists
     let taskDetailsDiv = document.getElementById('task-details');
     
@@ -46,18 +62,20 @@ function showTaskDetails(name, description, dueDate, status) {
 
     // Fill the div with the task details
     taskDetailsDiv.innerHTML = `
-        <h2>${name}</h2>
+            <h2>${name}</h2>
         <div>
-            <h3>Description:</h3>
-            <p>${description}</p>
-        </div>
-        <div>
-            <h3>Due Date:</h3>
-            <p>${transformDate(dueDate)}</p>
-        </div>
-        <div>
-            <h3>Status:</h3>
-            <p>${status}</p>
+            <div>
+                <h3>Description:</h3>
+                <p>${description}</p>
+            </div>
+            <div>
+                <h3>Due Date:</h3>
+                <p>${transformDate(dueDate)}</p>
+            </div>
+            <div>
+                <h3>Status:</h3>
+                <p>${formatStatus(status)}</p>
+            </div>
         </div>
         <button id="closeTaskDetails" class="cancelButton">Close</button>
     `;
@@ -69,7 +87,6 @@ function showTaskDetails(name, description, dueDate, status) {
         taskDetailsDiv.parentNode.removeChild(taskDetailsDiv);
     });
     
-    // Exibe o div
     taskDetailsDiv.style.display = 'block';
 }   
 
@@ -88,7 +105,7 @@ function createEventHandler(e) {
     setTimeout(() => {
     (async () => {
         createTaskList(await getAllTasks());
-    })();}, 100);
+    })();}, 500);
 
 
 }
@@ -187,13 +204,19 @@ function createTaskList(tasks) {
             taskDetails = `
             <p class="task-item-name"><strong>${task.name}</strong></p>
             <p><strong>Due by: </strong>No due date</p>
-            <p><strong>Status: </strong> ${task.status}</p>
+            <div class="status-container">
+                <div class="${task.status} task-status-color"></div>
+                <p><strong>${formatStatus(task.status)}</strong></p>
+            </div>
             `;
         } else {
             taskDetails = `
             <p class="task-item-name"><strong>${task.name}</strong></p>
             <p><strong>Due by: </strong>${transformDate(task.dueDate)}</p>
-            <p><strong>Status: </strong> ${task.status}</p>
+            <div class="status-container">
+                <div class="${task.status} task-status-color"></div>
+                <p><strong>${formatStatus(task.status)}</strong></p>
+            </div>
             `;
         }
 
