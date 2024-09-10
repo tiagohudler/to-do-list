@@ -33,7 +33,7 @@ h1 {
     align-items: left;
 }
 
-#searchButton {
+#search-button {
     height: 33px;
     width: 400px;
     border-radius: 7px;
@@ -43,7 +43,7 @@ h1 {
     padding-left: 8px;
 }
 
-#searchByWord {
+#search-by-word {
     background-color: rgb(245, 245, 245);
     background-image: url(./resources/search.svg);
     color : lightgray;
@@ -56,7 +56,7 @@ h1 {
     vertical-align:middle;
     border: lightgray 1px solid;
 }
-#searchByWord:hover {
+#search-by-word:hover {
     background-color: rgb(230, 230, 230);
     cursor: pointer;
 }

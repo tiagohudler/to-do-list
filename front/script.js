@@ -307,7 +307,7 @@ document.getElementById("cancelCreateButton").addEventListener("click", () => cl
 
 document.getElementById("search-form").addEventListener("submit", async (e) => {
     e.preventDefault();
-    let searchPhrase = document.getElementById("searchButton").value;
+    let searchPhrase = document.getElementById("search-button").value;
     let tasks = await getAllTasks();
     let filteredTasks = tasks.filter((task) => task.name.includes(searchPhrase) || task.description.includes(searchPhrase));
     createTaskList(filteredTasks);
