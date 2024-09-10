@@ -15,7 +15,7 @@ h1 {
     font-size: 45px;
 }
 
-#content {
+#main-buttons-container {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -25,6 +25,12 @@ h1 {
     align-self: center;
     width: 64vw;
     margin-top: 60px;
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
 }
 
 #searchButton {
@@ -157,6 +163,7 @@ h1 {
     flex-direction: column;
     gap: 5px;
     border: lightgray 1px solid;
+    min-width: 60vw;
 
 }
 
