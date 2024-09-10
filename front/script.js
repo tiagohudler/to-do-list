@@ -44,7 +44,7 @@ function transformDate(dateString) {
     }
 
     else {
-        return "No due date";
+        return "-";
     }
 }
 
@@ -218,7 +218,7 @@ function createTaskList(tasks) {
         if (task.dueDate === null) {
             taskDetails = `
             <p class="task-item-name"><strong>${task.name}</strong></p>
-            <p><strong>Due by: </strong>No due date</p>
+            <p><strong>Due by: </strong>-</p>
             <div class="status-container">
                 <div class="${task.status} task-status-color"></div>
                 <p><strong>${formatStatus(task.status)}</strong></p>
