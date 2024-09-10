@@ -17,36 +17,36 @@
         <h1>Manager</h1>
     </div>
 
-    <div>
-        <form id="createForm" class="popup inputform">
-            <div class="form-item">
-                <label for="taskName">Task Name:</label>
-                <input type="text" id="taskName" name="taskName" placeholder="Task Name" required>
-            </div>
-            <div class="form-item">
-                <label for="taskDescription">Task Description:</label>
-                <textarea type="text" id="taskDescription" name="taskDescription" placeholder="Task Description" rows="4"></textarea>
-            </div>
-            <div class="form-item">
-                <label for="dueDate">Due Date:</label>
-                <input type="date" id="dueDate" name="dueDate" placeholder="Task Due Date">
-            </div>
-            <div class="form-item">
-                <label for="taskStatus">Task status:</label>
-                <select id="taskStatus" name="taskStatus">
-                    <option value="NOT_STARTED">Not Started</option>
-                    <option value="IN_PROGRESS">In Progress</option>
-                    <option value="ON_HOLD">On Hold</option>
-                    <option value="COMPLETED">Completed</option>
-                </select>
-            </div>
-            <div>
-                <input type="submit" class="submit-form-button" value="Submit">
-                <input type="button" value="Cancel" class="cancelButton" id="cancelCreateButton">
-            </div>
-        </form>
-        <div id="form-container"></div>
-    </div>
+    <div id="background-protection"></div>
+    <form id="createForm" class="popup inputform">
+        <div class="form-item">
+            <label for="taskName">Task Name:</label>
+            <input type="text" id="taskName" name="taskName" placeholder="Task Name" required>
+        </div>
+        <div class="form-item">
+            <label for="taskDescription">Task Description:</label>
+            <textarea type="text" id="taskDescription" name="taskDescription" placeholder="Task Description" rows="4"></textarea>
+        </div>
+        <div class="form-item">
+            <label for="dueDate">Due Date:</label>
+            <input type="date" id="dueDate" name="dueDate" placeholder="Task Due Date">
+        </div>
+        <div class="form-item">
+            <label for="taskStatus">Task status:</label>
+            <select id="taskStatus" name="taskStatus">
+                <option value="NOT_STARTED">Not Started</option>
+                <option value="IN_PROGRESS">In Progress</option>
+                <option value="ON_HOLD">On Hold</option>
+                <option value="COMPLETED">Completed</option>
+            </select>
+        </div>
+        <div>
+            <input type="submit" class="submit-form-button" value="Submit">
+            <input type="button" value="Cancel" class="cancelButton" id="cancelCreateButton">
+        </div>
+    </form>
+    <div id="form-container"></div>
+    
 
     <div id="content">
         <button id="createTask">Add Task</button>

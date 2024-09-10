@@ -2,19 +2,36 @@ import { postTask } from "./api/functions.js";
 import { getAllTasks } from "./api/functions.js";
 import { deleteTaskDB } from "./api/functions.js";
 import { putTask } from "./api/functions.js";
-// Pop-up funtions for create form
+
+
+// Pop-up funtions for create and update forms
+
+function openBackGroundProtection() {
+    document.getElementById("background-protection").style.display = "block";
+}
+
+function closeBackGroundProtection() {
+    document.getElementById("background-protection").style.display = "none";
+}
 
 function openCreateForm() {
     document.getElementById("createForm").style.display = "flex";
+    openBackGroundProtection();
 }
   
 function closeCreateForm() {
+
+    closeBackGroundProtection();
     document.getElementById("createForm").style.display = "none";
+    
 }
   
 function closeUpdateForm() {
     document.getElementById("form-container").textContent = '';
+    closeBackGroundProtection();
 }
+
+
 
 // Conevert date from "YYYY-MM-DD" to "DD/MM/YYYY"
 function transformDate(dateString) {
@@ -49,17 +66,11 @@ function formatStatus(input) {
 // Show task details function
 function showTaskDetails(name, description, dueDate, status) {
     
-    // Verify if the div already exists
-    let taskDetailsDiv = document.getElementById('task-details');
-    
-    if (!taskDetailsDiv) {
-        
-        taskDetailsDiv = document.createElement('div');
-        taskDetailsDiv.id = 'task-details';
-        document.body.appendChild(taskDetailsDiv);
+    let taskDetailsDiv = document.createElement('div');
+    taskDetailsDiv.id = 'task-details';
+    document.body.appendChild(taskDetailsDiv);
 
-    }
-
+    openBackGroundProtection();
     // Fill the div with the task details
     taskDetailsDiv.innerHTML = `
             <h2>${name}</h2>
@@ -85,6 +96,7 @@ function showTaskDetails(name, description, dueDate, status) {
     document.getElementById('closeTaskDetails').addEventListener('click', () => {
         taskDetailsDiv.textContent = '';
         taskDetailsDiv.parentNode.removeChild(taskDetailsDiv);
+        closeBackGroundProtection();
     });
     
     taskDetailsDiv.style.display = 'block';
@@ -134,32 +146,33 @@ function editTask(e, task) {
     e.stopPropagation();
     document.getElementById("form-container").innerHTML = `
     <form id="updateForm" class="inputform">
-            <div class="form-item">
-                <label for="updateName">Task Name:</label>
-                <input type="text" id="updateName" name="updateName" placeholder="Task Name" required>
-            </div>
-            <div class="form-item">
-                <label for="updateDescription">Task Description:</label>
-                <textarea type="text" id="updateDescription" name="updateDescription" placeholder="Task Description" rows="4"></textarea>
-            </div>
-            <div class="form-item">
-                <label for="updateDueDate">Due Date:</label>
-                <input type="date" id="updateDueDate" name="updateDueDate" placeholder="Task Due Date">
-            </div>
-            <div class="form-item">
-                <label for="updateStatus">Task status:</label>
-                <select id="updateStatus" name="updateStatus">
-                    <option value="NOT_STARTED">Not Started</option>
-                    <option value="IN_PROGRESS">In Progress</option>
-                    <option value="ON_HOLD">On Hold</option>
-                    <option value="COMPLETED">Completed</option>
-                </select>
-            </div>
-            <div>
-                <input type="submit" class="submit-form-button" value="Submit">
-                <input type="button" value="Cancel" class="cancelButton" id="cancelUpdateButton">
-            </div>
-        </form>`;
+        <div class="form-item">
+            <label for="updateName">Task Name:</label>
+            <input type="text" id="updateName" name="updateName" placeholder="Task Name" required>
+        </div>
+        <div class="form-item">
+            <label for="updateDescription">Task Description:</label>
+            <textarea type="text" id="updateDescription" name="updateDescription" placeholder="Task Description" rows="4"></textarea>
+        </div>
+        <div class="form-item">
+            <label for="updateDueDate">Due Date:</label>
+            <input type="date" id="updateDueDate" name="updateDueDate" placeholder="Task Due Date">
+        </div>
+        <div class="form-item">
+            <label for="updateStatus">Task status:</label>
+            <select id="updateStatus" name="updateStatus">
+                <option value="NOT_STARTED">Not Started</option>
+                <option value="IN_PROGRESS">In Progress</option>
+                <option value="ON_HOLD">On Hold</option>
+                <option value="COMPLETED">Completed</option>
+            </select>
+        </div>
+        <div>
+            <input type="submit" class="submit-form-button" value="Submit">
+            <input type="button" value="Cancel" class="cancelButton" id="cancelUpdateButton">
+        </div>
+    </form>`;
+    openBackGroundProtection();
     document.getElementById("updateName").value = task.name;
     document.getElementById("updateDueDate").value = task.dueDate;
     document.getElementById("updateStatus").value = task.status;
@@ -179,6 +192,8 @@ function deleteTask(e, id, tasks) {
     tasks = tasks.filter((task) => task.id !== id);
     task.remove();
 }
+
+
 
 // given a list of tasks, append tasks onto the display
 function createTaskList(tasks) {
@@ -281,6 +296,7 @@ createTaskForm.addEventListener("submit", createEventHandler);
 // cancel button closes form
 
 function closeFormById(id) {
+    closeBackGroundProtection();
     document.getElementById(id).style.display = "none";
 }
 
