@@ -117,7 +117,7 @@ function createEventHandler(e) {
     setTimeout(() => {
     (async () => {
         createTaskList(await getAllTasks());
-    })();}, 500);
+    })();}, 300);
 
 
 }
