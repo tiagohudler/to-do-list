@@ -2,6 +2,7 @@ import { postTask } from "./api/functions.js";
 import { getAllTasks } from "./api/functions.js";
 import { deleteTaskDB } from "./api/functions.js";
 import { putTask } from "./api/functions.js";
+import { deleteAllTasks } from "./api/functions.js";
 
 
 // Pop-up funtions for create and update forms
@@ -130,13 +131,14 @@ function updateEventHandler(e, id) {
     let taskDescription = document.getElementById("updateDescription").value;
     let dueDate = document.getElementById("updateDueDate").value;
     let taskStatus = document.getElementById("updateStatus").value;
+    document.getElementById("updateForm").removeEventListener("submit", updateEventHandler);
+
     putTask(taskName, taskDescription, dueDate, taskStatus, id);
     closeUpdateForm();
     setTimeout(() => {
     (async () => {
         createTaskList(await getAllTasks());
     })();}, 100);
-    document.getElementById("updateForm").removeEventListener("submit", updateEventHandler);
 
 }
 
@@ -311,4 +313,11 @@ document.getElementById("search-form").addEventListener("submit", async (e) => {
     let tasks = await getAllTasks();
     let filteredTasks = tasks.filter((task) => task.name.includes(searchPhrase) || task.description.includes(searchPhrase));
     createTaskList(filteredTasks);
+});
+
+// clear button
+
+document.getElementById("delete-all-tasks").addEventListener("click", () => {
+    deleteAllTasks();
+    document.getElementById("task-list").innerHTML = '';
 });

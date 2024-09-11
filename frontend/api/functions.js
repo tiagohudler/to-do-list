@@ -1,5 +1,5 @@
 export function postTask (name, description, dueDate, status) {
-    const url = "http://localhost:8080/api/tasks/add-task";
+    const url = "http://localhost:7070/api/tasks/add-task";
     const createrequest = new Request(url, {
         method: "POST",
         headers: {
@@ -27,7 +27,7 @@ export function postTask (name, description, dueDate, status) {
 }
 
 export async function getAllTasks (name, description, dueDate, status) {
-    const url = "http://localhost:8080/api/tasks/all-tasks";
+    const url = "http://localhost:7070/api/tasks/all-tasks";
     const getAllRequest = new Request(url, {
         method: "GET"
     });
@@ -37,7 +37,7 @@ export async function getAllTasks (name, description, dueDate, status) {
 }
 
 export async function deleteTaskDB (id) {
-    const url = `http://localhost:8080/api/tasks/${id}`;
+    const url = `http://localhost:7070/api/tasks/${id}`;
     const deleteRequest = new Request(url, {
         method: "DELETE"
     });
@@ -56,7 +56,7 @@ export async function deleteTaskDB (id) {
 }
 
 export function putTask (name, description, dueDate, status, id) {
-    const url = `http://localhost:8080/api/tasks/${id}`;
+    const url = `http://localhost:7070/api/tasks/${id}`;
     const putrequest = new Request(url, {
         method: "PUT",
         headers: {
@@ -82,4 +82,13 @@ export function putTask (name, description, dueDate, status, id) {
         .catch((error) => {
             console.log(error);
         });
+}
+
+export async function deleteAllTasks () {
+    const url = "http://localhost:7070/api/tasks/delete-all";
+    const deleteAllRequest = new Request(url, {
+        method: "DELETE"
+    });
+    const response = await fetch(deleteAllRequest);
+    return await response.json();
 }

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,7 +28,7 @@ public class Task {
     @NotEmpty
     private String name;
     private String description;
-    @Future
+    @FutureOrPresent(message = "date must be future or present")
     private LocalDate dueDate;
 
 }

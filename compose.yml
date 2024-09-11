@@ -7,4 +7,28 @@ services:
       - 'POSTGRES_USER=user'
     ports:
       - '5432:5432'
-    
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/to-do-list
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+    depends_on:
+      - postgres
+    ports:
+      - '7070:7070'
+
+  frontend:
+    build: ./frontend
+    ports:
+      - '5050:5050'
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+
+volumes:
+  postgres_data:
